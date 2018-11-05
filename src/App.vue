@@ -24,12 +24,7 @@
       </v-toolbar>
       <v-list>
         <v-divider></v-divider>
-        <v-list-tile
-          v-for="item in items"
-          :key="item.title"
-          @click="_selected(item)"
-          :to="item.path"
-        >
+        <v-list-tile v-for="item in items" :key="item.title" @click="_selected(item)" :to="item.path">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -39,11 +34,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      app
-      :clipped-left="clipped"
-      color="primary"
-    >
+    <v-toolbar app :clipped-left="clipped" color="primary">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
@@ -56,8 +47,18 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-menu offset-y>       
+        <v-btn slot="activator" flat icon>
+          <v-icon>edit</v-icon>
+        </v-btn>
+        <v-list>
+          <v-list-tile v-for="(item, index) in coloritems" :key="index" @click="_changecolor(item)">
+            <v-list-tile-title><p color="green">{{ item.title }}</p></v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
       <v-btn icon>
-        <v-switch v-model="darkTheme" title="Dark Theme"></v-switch>
+        <v-switch v-model="darkTheme"></v-switch>
       </v-btn>
     </v-toolbar>
     <v-content>
@@ -65,13 +66,7 @@
         <router-view></router-view>
       </v-container>
     </v-content>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
-      app
-    >
+    <v-navigation-drawer temporary :right="right" v-model="rightDrawer" fixed app>
       <v-list>
         <v-list-tile @click="right = !right">
           <v-list-tile-action>
@@ -87,6 +82,7 @@
   </v-app>
 </template>
 <script>
+import colors from 'vuetify/es5/util/colors'
 export default {
   data () {
     return {
@@ -97,6 +93,9 @@ export default {
               { title: 'Home', icon: 'dashboard', path: '/sample1'},
               { title: 'About', icon: 'question_answer', path: '/sample2' }
               ],
+      coloritems: [{ title: 'Blue', color: colors.blue },
+                  { title: 'Green', color: colors.green },
+                  { title: 'Purple', color: colors.purple }],
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -108,6 +107,10 @@ export default {
     _selected(selected)
     {
       console.log(selected.icon)
+      //this.$vuetify.theme.primary = colors.purple;
+    },
+    _changecolor(selected) {
+      this.$vuetify.theme.primary = selected.color;
     }
   },
   name: 'App'
