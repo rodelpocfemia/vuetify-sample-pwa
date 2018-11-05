@@ -53,7 +53,7 @@
         </v-btn>
         <v-list>
           <v-list-tile v-for="(item, index) in coloritems" :key="index" @click="_changecolor(item)">
-            <v-list-tile-title><p color="green">{{ item.title }}</p></v-list-tile-title>
+            <v-list-tile-title><div :class="item.colorname"><v-badge></v-badge></div></v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -89,13 +89,16 @@ export default {
       clipped: false,
       drawer: true,
       fixed: false,
-      items: [{ icon: 'bubble_chart', title: 'Inspire', path: '/'},
-              { title: 'Home', icon: 'dashboard', path: '/sample1'},
-              { title: 'About', icon: 'question_answer', path: '/sample2' }
+      items: [{ title: 'Inspire', icon: 'bubble_chart', path: '/'},
+              { title: 'Sample Tabs', icon: 'dashboard', path: '/sample1'},
+              { title: 'Sample Data Table', icon: 'question_answer', path: '/sample2' },
+              { title: 'Sample Loading buttons', icon: 'android', path: '/sample3' }
               ],
-      coloritems: [{ title: 'Blue', color: colors.blue },
-                  { title: 'Green', color: colors.green },
-                  { title: 'Purple', color: colors.purple }],
+      coloritems: [{ title: 'Blue', color: colors.blue, colorname: 'blue' },
+                  { title: 'Green', color: colors.green, colorname: 'green' },
+                  { title: 'Purple', color: colors.purple, colorname: 'purple' },
+                  { title: 'Red', color: colors.red.darken1, colorname: 'red' },
+                  { title: 'Brown', color: colors.brown.darken1, colorname: 'brown' }],
       miniVariant: false,
       right: true,
       rightDrawer: false,
