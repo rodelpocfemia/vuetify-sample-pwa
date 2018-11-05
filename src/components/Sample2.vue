@@ -1,8 +1,43 @@
 <template>
   <div>
-    <p class="text-lg-right">
-      <v-btn color="primary" v-on:click="onexport">Dowload</v-btn>
-    </p>       
+    <v-flex xs12>
+        <v-layout row wrap>
+          <v-flex xs1>
+            <div class="text-lg-center">
+              <v-btn color="primary">Copy Data</v-btn> 
+            </div>
+          </v-flex>
+          <v-flex xs2>
+              <div class="text-lg-center">
+                <upload-btn
+                  title="Upload"
+                  color="primary"
+                  class="white--text"     
+                  :loading="loading_upload"
+                  :disabled="loading_upload"
+                  :accept="SheetJSFT" 
+                  :fileChangedCallback="_fileChanged"
+                  >
+                  <template slot="icon">
+                    <v-icon right>cloud_upload</v-icon>
+                  </template>
+                </upload-btn>
+              </div>
+          </v-flex>
+          <v-flex xs1>
+              <div class="text-lg-left">
+                  <v-btn color="primary" 
+                  :loading="loading_export"
+                  :disabled="loading_export"
+                  v-on:click="export_api_data">
+                  Dowload
+                  <v-icon right>cloud_download</v-icon>
+                </v-btn> 
+              </div>
+               
+          </v-flex>   
+        </v-layout>
+    </v-flex>
     <v-data-table
       v-model="selected"
       :headers="headers"
@@ -51,24 +86,13 @@
           <td class="text-xs-right">{{ props.item.iron }}</td>
         </tr>
       </template>
-    </v-data-table>  
-    <p class="text-lg-left">
-      <upload-btn
-        title="Upload"
-        color="primary"
-        class="white--text"     
-        :accept="SheetJSFT" >
-        <template slot="icon">
-           <v-icon right>cloud_upload</v-icon>
-        </template>
-    </upload-btn>
-    </p>
+    </v-data-table>
   </div>
 </template>
 <script>
 import UploadButton from 'vuetify-upload-button';
 import XLSX from 'xlsx'
-import ApiService from '@/services/services.js'
+import ApiServices from '@/services/'
 
 const make_cols = refstr => Array(XLSX.utils.decode_range(refstr).e.c + 1).fill(0).map((x,i) => ({name:XLSX.utils.encode_col(i), key:i}));
 const _SheetJSFT = [
@@ -77,6 +101,8 @@ const _SheetJSFT = [
 
   export default {
     data: () => ({
+      loading_export: false,
+      loading_upload: true,
       sample_api_data: null,
       export_data: {
       // We will make a Workbook contains 2 Worksheets
@@ -92,7 +118,11 @@ const _SheetJSFT = [
                   ,{"name": "Eevee", "category": "pokemon"}
                 ],
       'testdata': [{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000017","style":"BL DAKOTA","color":"BU BURGUNDY","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000024","style":"BL DAKOTA","color":"BLK BLACK","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"}],
-      "snapShotProdDataItem":[{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000017","style":"BL DAKOTA","color":"BU BURGUNDY","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000024","style":"BL DAKOTA","color":"BLK BLACK","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"}]
+      //"snapShotProdDataItem":[{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000017","style":"BL DAKOTA","color":"BU BURGUNDY","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000024","style":"BL DAKOTA","color":"BLK BLACK","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"}]
+      //"snapShotProdDataItem":[{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000017","style":"BL DAKOTA","color":"BU BURGUNDY","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000024","style":"BL DAKOTA","color":"BLK BLACK","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000031","style":"BL CHARLOTTE","color":"BLK BLACK","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000048","style":"BL CHARLOTTE","color":"BLU BLUE","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Modern"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000055","style":"BL CHARLOTTE","color":"BU BURGUNDY","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000062","style":"BL LILLIAN","color":"BU BURGUNDY","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Color"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000079","style":"BL LILLIAN","color":"BRN BROWN","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Modern"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000086","style":"BL LILLIAN","color":"PUR PURPLE","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Color"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000093","style":"BL PAULA","color":"PUR PURPLE","size":"49-16","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000109","style":"BL PAULA","color":"BLU BLUE","size":"49-16","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"}]
+      //"snapShotProdDataItem":[{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000017","style":"BL DAKOTA","color":"BU BURGUNDY","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000024","style":"BL DAKOTA","color":"BLK BLACK","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000031","style":"BL CHARLOTTE","color":"BLK BLACK","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000048","style":"BL CHARLOTTE","color":"BLU BLUE","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Modern"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000055","style":"BL CHARLOTTE","color":"BU BURGUNDY","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000062","style":"BL LILLIAN","color":"BU BURGUNDY","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Color"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000079","style":"BL LILLIAN","color":"BRN BROWN","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Modern"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000086","style":"BL LILLIAN","color":"PUR PURPLE","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Color"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000093","style":"BL PAULA","color":"PUR PURPLE","size":"49-16","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000109","style":"BL PAULA","color":"BLU BLUE","size":"49-16","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"}]
+      "snapShotProdDataItem":[{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000017","style":"BL DAKOTA","color":"BU BURGUNDY","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000024","style":"BL DAKOTA","color":"BLK BLACK","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000031","style":"BL CHARLOTTE","color":"BLK BLACK","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000048","style":"BL CHARLOTTE","color":"BLU BLUE","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Modern"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000055","style":"BL CHARLOTTE","color":"BU BURGUNDY","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000062","style":"BL LILLIAN","color":"BU BURGUNDY","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Color"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000079","style":"BL LILLIAN","color":"BRN BROWN","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Modern"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000086","style":"BL LILLIAN","color":"PUR PURPLE","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Color"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000093","style":"BL PAULA","color":"PUR PURPLE","size":"49-16","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000109","style":"BL PAULA","color":"BLU BLUE","size":"49-16","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"}],
+      'test_snapshot':[{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000017","style":"BL DAKOTA","color":"BU BURGUNDY","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000024","style":"BL DAKOTA","color":"BLK BLACK","size":"48-15","wPrice":59.95,"pPrice":47.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000031","style":"BL CHARLOTTE","color":"BLK BLACK","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000048","style":"BL CHARLOTTE","color":"BLU BLUE","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Modern"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000055","style":"BL CHARLOTTE","color":"BU BURGUNDY","size":"49-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000062","style":"BL LILLIAN","color":"BU BURGUNDY","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Color"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000079","style":"BL LILLIAN","color":"BRN BROWN","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Modern"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000086","style":"BL LILLIAN","color":"PUR PURPLE","size":"48-17","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":2,"alert":1,"category":"Bloom Optical","role":"08 - Color"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000093","style":"BL PAULA","color":"PUR PURPLE","size":"49-16","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"},{"image":"","brandId":38,"brand":"Bloom","fpc":"410878000109","style":"BL PAULA","color":"BLU BLUE","size":"49-16","wPrice":64.95,"pPrice":51.96,"status":"L_BUILD","frameFlag":null,"estRecoveryDate":null,"availableInventory":0,"ecpCount":16,"alert":1,"category":"Bloom Optical","role":"16 - Must Have"}]
       },
       pagination: {
         sortBy: 'name'
@@ -238,23 +268,74 @@ const _SheetJSFT = [
         XLSX.writeFile(wb, 'book.xlsx') // name of the file is 'book.xlsx'
       },
       async export_api_data(){
-        console.log('export_api_data')
-        const response = await ApiService.getData()
-        //const response = await ApiService.getWeatherData()
-        
-        this.sample_api_data = JSON.stringify(response.data)
-        
-        console.log(this.sample_api_data)
+        this.loading_export = true;
         /*
-        var WS = XLSX.utils.json_to_sheet(this.sample_api_data) 
+        const response = await ApiServices.getProgramFramesData()       
+        this.sample_api_data = response.data.programFramesItem
+        this._generateXLS(this.sample_api_data, 'programFramesItem')
+        */
+                
+        const response = await ApiServices.getSnapShotProdData()       
+        this.sample_api_data = response.data.snapShotProdDataItem
+        this._generateXLS(this.sample_api_data, 'snapShotProdDataItem')
+        
+        this.loading_export = false;
+        /*
+        var WS = XLSX.utils.json_to_sheet(this.sample_api_data)         
         var wb = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, WS, 'ProdData')
-        XLSX.writeFile(wb, 'book.xlsx')
+        XLSX.writeFile(wb, 'snapShotProdDataItem.xlsx')       
         */
+      },
+      _generateXLS(data, filename) {
+        var WS = XLSX.utils.json_to_sheet(data)         
+        var wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, WS, filename)
+        XLSX.writeFile(wb, filename+'.xlsx')       
+      },
+      _fileChanged (file) {
+			  this._file(file);
+      },
+      _file(file) {
+        /* Boilerplate to set up FileReader */
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          /* Parse data */
+          const bstr = e.target.result;
+          const wb = XLSX.read(bstr, {type:'binary'});
+          /* Get first worksheet */
+          const wsname = wb.SheetNames[0];
+          const ws = wb.Sheets[wsname];
+          /* Convert array of arrays */
+          const data = XLSX.utils.sheet_to_json(ws, {header:1});
+
+          /* Update state */
+          this.data = data;
+          this.cols = make_cols(ws['!ref']);
+
+          //console.log(JSON.stringify(this.data))
+          this._convertToJson(JSON.stringify(this.data))
+          //console.log(this.data)				
+        };
+        reader.readAsBinaryString(file);		
+          
+      },
+      _convertToJson(data)
+      {
+        //console.log(data);
+        var arr = JSON.parse(data)			
+        var labels = arr[0]
+        
+        var output = arr.slice(1).map(item => item.reduce((obj, val, index) => {
+        obj[labels[index]] = val
+        return obj
+        }, {}))
+        
+        console.log(JSON.stringify(output))
       }
     },
     components: {
       'upload-btn': UploadButton
 	}
-  }
+}
 </script>

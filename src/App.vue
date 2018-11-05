@@ -92,7 +92,8 @@ export default {
       items: [{ title: 'Inspire', icon: 'bubble_chart', path: '/'},
               { title: 'Sample Tabs', icon: 'dashboard', path: '/sample1'},
               { title: 'Sample Data Table', icon: 'question_answer', path: '/sample2' },
-              { title: 'Sample Loading buttons', icon: 'android', path: '/sample3' }
+              { title: 'Sample Loading buttons', icon: 'android', path: '/sample3' },
+              { title: 'Grid system', icon: 'cloud_upload', path: '/sample4' }
               ],
       coloritems: [{ title: 'Blue', color: colors.blue, colorname: 'blue' },
                   { title: 'Green', color: colors.green, colorname: 'green' },
