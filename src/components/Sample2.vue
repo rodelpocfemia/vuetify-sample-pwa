@@ -12,9 +12,7 @@
                 <upload-btn
                   title="Upload"
                   color="primary"
-                  class="white--text"     
-                  :loading="loading_upload"
-                  :disabled="loading_upload"
+                  class="white--text"
                   :accept="SheetJSFT" 
                   :fileChangedCallback="_fileChanged"
                   >
@@ -307,8 +305,13 @@ const _SheetJSFT = [
           const wsname = wb.SheetNames[0];
           const ws = wb.Sheets[wsname];
           /* Convert array of arrays */
-          const data = XLSX.utils.sheet_to_json(ws, {header:1});
 
+          var range = XLSX.utils.decode_range(ws['!ref']);
+          range.s.r = 1; // <-- zero-indexed, so setting to 1 will skip row 0
+          ws['!ref'] = XLSX.utils.encode_range(range);
+          ws['!ref'] = "B2:C4"          
+          const data = XLSX.utils.sheet_to_json(ws, {header:1});         
+          //const data = XLSX.utils.sheet_to_json(ws, {header:headers, range:1});
           /* Update state */
           this.data = data;
           this.cols = make_cols(ws['!ref']);
@@ -327,11 +330,12 @@ const _SheetJSFT = [
         var labels = arr[0]
         
         var output = arr.slice(1).map(item => item.reduce((obj, val, index) => {
-        obj[labels[index]] = val
-        return obj
+          obj[labels[index]] = val
+          return obj
         }, {}))
         
         console.log(JSON.stringify(output))
+        //console.log(output)
       }
     },
     components: {
