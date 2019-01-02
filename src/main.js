@@ -11,6 +11,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(BootstrapVue)
 Vue.use(Vuetify)
 Vue.use(XLSX)
 Vue.use(axios)

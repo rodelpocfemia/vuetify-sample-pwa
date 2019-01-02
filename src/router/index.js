@@ -6,6 +6,11 @@ import Sample2 from '@/components/Sample2'
 import Sample3 from '@/components/Sample3'
 import Sample4 from '@/components/Sample4'
 import VuetifyDataTable from '@/components/VuetifyDataTable'
+import FrameExceptions from '@/components/FrameExceptions'
+import BootstrapVueTabs from '@/components/BootstrapVueTabs'
+import VueDropzone from '@/components/VueDropzone'
+import BootsrapVueInputFile from '@/components/BootsrapVueInputFile'
+import DashboardCard from '@/components/DashboardCard'
 
 Vue.use(Router)
 
@@ -40,6 +45,31 @@ export default new Router({
       path: '/VuetifyDataTable',
       name: 'Vuetify Data Table',
       component: VuetifyDataTable
+    },
+    {
+      path: '/FrameExceptions',
+      name: 'FrameExceptions',
+      component: FrameExceptions
+    },
+    {
+      path: '/BootstrapVueTabs',
+      name: 'BootstrapVueTabs',
+      component: BootstrapVueTabs
+    },
+    {
+      path: '/VueDropzone',
+      name: 'VueDropzone',
+      component: VueDropzone
+    },
+    {
+      path: '/BootsrapVueInputFile',
+      name: 'BootsrapVueInputFile',
+      component: BootsrapVueInputFile
+    },
+    {
+      path: '/DashboardCard',
+      name: 'DashboardCard',
+      component: DashboardCard
     }
   ]
 })

@@ -93,8 +93,13 @@ export default {
               { title: 'Sample Tabs', icon: 'dashboard', path: '/sample1'},
               { title: 'Sample Data Table', icon: 'question_answer', path: '/sample2' },
               { title: 'Sample Loading buttons', icon: 'android', path: '/sample3' },
-              { title: 'Grid system', icon: 'cloud_upload', path: '/sample4' },
-              { title: 'Vuetify Data Table', icon: 'dashboard', path: '/VuetifyDataTable' }
+              { title: 'Grid system', icon: 'android', path: '/sample4' },
+              { title: 'Vuetify Data Table', icon: 'dashboard', path: '/VuetifyDataTable' },
+              { title: 'Frame Exceptions', icon: 'dashboard', path: '/FrameExceptions' },
+              { title: 'Bootstrap Vue Tabs', icon: 'dashboard', path: '/BootstrapVueTabs' },
+              { title: 'Vue Dropzone', icon: 'cloud_upload', path: '/VueDropzone' },
+              { title: 'BootsrapVueInputFile', icon: 'cloud_upload', path: '/BootsrapVueInputFile' },
+              { title: 'DashboardCard', icon: 'dashboard', path: '/DashboardCard' }
               ],
       coloritems: [{ title: 'Blue', color: colors.blue, colorname: 'blue' },
                   { title: 'Green', color: colors.green, colorname: 'green' },
@@ -105,7 +110,7 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js',
-      darkTheme: true
+      darkTheme: false
     }
   },
   methods: {

@@ -8,7 +8,7 @@
             </div>
           </v-flex>
           <v-flex xs2>
-              <div class="text-lg-center">
+              <div class="text-lg-center" style="width:200px;">
                 <upload-btn
                   title="Upload"
                   color="primary"
@@ -27,7 +27,7 @@
                   <v-btn color="primary" 
                   :loading="loading_export"
                   :disabled="loading_export"
-                  v-on:click="export_api_data">
+                  v-on:click="onexport">
                   Dowload
                   <v-icon right>cloud_download</v-icon>
                 </v-btn> 
@@ -291,7 +291,7 @@ const _SheetJSFT = [
         XLSX.utils.book_append_sheet(wb, WS, filename)
         XLSX.writeFile(wb, filename+'.xlsx')       
       },
-      _fileChanged (file) {
+      _fileChanged (file) { //upload
 			  this._file(file);
       },
       _file(file) {
@@ -307,9 +307,9 @@ const _SheetJSFT = [
           /* Convert array of arrays */
 
           var range = XLSX.utils.decode_range(ws['!ref']);
-          range.s.r = 1; // <-- zero-indexed, so setting to 1 will skip row 0
-          ws['!ref'] = XLSX.utils.encode_range(range);
-          ws['!ref'] = "B2:C4"          
+          //range.s.r = 1; // <-- zero-indexed, so setting to 1 will skip row 0
+          //ws['!ref'] = XLSX.utils.encode_range(range);
+          //ws['!ref'] = "B2:C4"          
           const data = XLSX.utils.sheet_to_json(ws, {header:1});         
           //const data = XLSX.utils.sheet_to_json(ws, {header:headers, range:1});
           /* Update state */
