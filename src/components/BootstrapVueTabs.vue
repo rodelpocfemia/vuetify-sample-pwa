@@ -14,12 +14,12 @@
             class="elevation-1"
           >
             <template slot="items" slot-scope="props">
-              <td>{{ props.item.name }}</td>
-              <td class="text-xs-right">{{ props.item.calories }}</td>
-              <td class="text-xs-right">{{ props.item.fat }}</td>
-              <td class="text-xs-right">{{ props.item.carbs }}</td>
-              <td class="text-xs-right">{{ props.item.protein }}</td>
-              <td class="text-xs-right">{{ props.item.iron }}</td>
+              <td class="text-xs-left" style="width:10px;">{{ props.item.name }}</td>
+              <td class="text-xs-left" style="width:100px;">{{ props.item.calories }}</td>
+              <td class="text-xs-left" style="width:50px;">{{ props.item.fat }}</td>
+              <td class="text-xs-left" style="width:50px;">{{ props.item.carbs }}</td>
+              <td class="text-xs-left" style="width:50px;">{{ props.item.protein }}</td>
+              <td class="text-xs-left" style="width:50px;">{{ props.item.iron }}</td>
             </template>
           </v-data-table>
           <br>
@@ -60,6 +60,14 @@ export default {
         {
           "snapShotId": 4,
           "snapShotName": "sample 4"
+        },
+        {
+          "snapShotId": 10,
+          "snapShotName": "sample 10"
+        },
+        {
+          "snapShotId": 15,
+          "snapShotName": "sample 15"
         }
       ],
       tabs: [1,2,3,4],
@@ -69,13 +77,14 @@ export default {
             text: 'Dessert (100g serving)',
             align: 'left',
             sortable: false,
-            value: 'name'
+            value: 'name',
+            width: '5%'
           },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' }
+          { text: 'Calories', value: 'calories', width: '5%' },
+          { text: 'Fat (g)', value: 'fat', width: '5%' },
+          { text: 'Carbs (g)', value: 'carbs', width: '5%' },
+          { text: 'Protein (g)', value: 'protein', width: '5%' },
+          { text: 'Iron (%)', value: 'iron', width: '75%' }
         ],
         sampledynamic: [],
         desserts1: [         
@@ -122,9 +131,9 @@ export default {
     newTab () {
       this.tabs.push(this.tabCounter++)
     },
-    tabSelected(id) {
-      console.log(id)
-      if (id==0)
+    tabSelected(snapshotidid) {
+      console.log(snapshotidid)
+      if (snapshotidid==0)
         this.sampledynamic = this.desserts1
       else
         this.sampledynamic = this.desserts2

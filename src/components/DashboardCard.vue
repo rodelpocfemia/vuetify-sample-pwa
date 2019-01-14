@@ -1,36 +1,42 @@
 <template>
-  <v-card
-    class="mt-3 mx-auto"
-    max-width="400"
-  >
-    <v-sheet
-      class="v-sheet--offset mx-auto"
-      color="primary"
-      elevation="5"
-      max-width="calc(100% - 32px)"
-    >
-      <v-sparkline
-        :labels="labels"
-        :value="value"
-        color="white"
-        line-width="2"
-        padding="16"
-      ></v-sparkline>
-    </v-sheet>
+  <div class="samplecss">
+    <br><br>
+    <p>asdf asdf asdf asdf</p>
+    <br><br>
 
-    <v-card-text class="pt-0">
-      <div class="title font-weight-light mb-2">User Registrations</div>
-      <div class="subheading font-weight-light grey--text">Last Campaign Performance</div>
-      <v-divider class="my-2"></v-divider>
-      <v-icon
-        class="mr-2"
-        small
+    <v-card
+      class="mt-3 mx-auto"
+      max-width="400"
+    >
+      <v-sheet
+        class="v-sheet--offset mx-auto"
+        color="primary"
+        elevation="12"
+        max-width="calc(100% - 32px)"
       >
-        mdi-clock
-      </v-icon>
-      <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
-    </v-card-text>
-  </v-card>
+        <v-sparkline
+          :labels="labels"
+          :value="value"
+          color="white"
+          line-width="2"
+          padding="16"
+        ></v-sparkline>
+      </v-sheet>
+
+      <v-card-text class="pt-0">
+        <div class="title font-weight-light mb-2">User Registrations</div>
+        <div class="subheading font-weight-light grey--text">Last Campaign Performance</div>
+        <v-divider class="my-2"></v-divider>
+        <v-icon
+          class="mr-2"
+          small
+        >
+          mdi-clock
+        </v-icon>
+        <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
 <style>
   .v-sheet--offset {
@@ -64,3 +70,13 @@
     })
   }
 </script>
+<style>
+.samplecss {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif; /* this was it */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  font-size: 12px;
+}
+</style>

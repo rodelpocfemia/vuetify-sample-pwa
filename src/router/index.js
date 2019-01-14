@@ -11,6 +11,8 @@ import BootstrapVueTabs from '@/components/BootstrapVueTabs'
 import VueDropzone from '@/components/VueDropzone'
 import BootsrapVueInputFile from '@/components/BootsrapVueInputFile'
 import DashboardCard from '@/components/DashboardCard'
+import Timeline from '@/components/Timeline'
+import Subheaders from '@/components/Subheaders'
 
 Vue.use(Router)
 
@@ -70,6 +72,16 @@ export default new Router({
       path: '/DashboardCard',
       name: 'DashboardCard',
       component: DashboardCard
+    },
+    {
+      path: '/Timeline',
+      name: 'Timeline',
+      component: Timeline
+    },
+    {
+      path: '/Subheaders',
+      name: 'Subheaders',
+      component: Subheaders
     }
   ]
 })

@@ -58,23 +58,52 @@
         </v-list>
       </v-menu>
       <v-btn icon>
-        <v-switch v-model="darkTheme"></v-switch>
+        <v-switch v-model="darkTheme" color="primary"></v-switch>
       </v-btn>
+      <!--
+      <v-btn icon @click="miniRight = !miniRight">
+         <v-icon>compare_arrows</v-icon>
+      </v-btn>
+      -->
     </v-toolbar>
     <v-content>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
     </v-content>
-    <v-navigation-drawer temporary :right="right" v-model="rightDrawer" fixed app>
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
+    <v-navigation-drawer permanent right fixed app :mini-variant="miniRight" width="300" mini-variant-width="100">
+        <v-card>
+          <div class="hide-overflow" style="position: relative;">
+            <v-toolbar color="primary" dark>
+              <v-toolbar-side-icon @click="miniRight = !miniRight"></v-toolbar-side-icon>
+            </v-toolbar>  
+          <div
+            id="scrolling-techniques"
+            class="scroll-y"
+            style="max-height: 600px;"
+          >
+            <v-container>
+              <v-list two-line  style="height:1000px;">
+              <template v-for="(item, index) in itemsRight">
+                <v-list-tile :key="index" avatar ripple @click="">
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    <v-list-tile-sub-title class="text--primary">{{ item.headline }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
+                    <v-icon color="grey lighten-1">star_border</v-icon>
+                  </v-list-tile-action>
+                </v-list-tile>
+                <v-divider v-if="index + 1 < items.length" :key="`divider-${index}`"></v-divider>
+              </template>
+            </v-list>
+            </v-container>
+          </div>        
+            
+            </div>
+        </v-card>
     </v-navigation-drawer>
     <v-footer :fixed="fixed" app>
       <span>&copy; 2017</span>
@@ -86,7 +115,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   data () {
     return {
-      clipped: false,
+      clipped: true,
       drawer: true,
       fixed: false,
       items: [{ title: 'Inspire', icon: 'bubble_chart', path: '/'},
@@ -99,7 +128,9 @@ export default {
               { title: 'Bootstrap Vue Tabs', icon: 'dashboard', path: '/BootstrapVueTabs' },
               { title: 'Vue Dropzone', icon: 'cloud_upload', path: '/VueDropzone' },
               { title: 'BootsrapVueInputFile', icon: 'cloud_upload', path: '/BootsrapVueInputFile' },
-              { title: 'DashboardCard', icon: 'dashboard', path: '/DashboardCard' }
+              { title: 'DashboardCard', icon: 'dashboard', path: '/DashboardCard' },
+              { title: 'Timeline', icon: 'dashboard', path: '/Timeline' },
+              { title: 'Subheaders', icon: 'dashboard', path: '/Subheaders' }
               ],
       coloritems: [{ title: 'Blue', color: colors.blue, colorname: 'blue' },
                   { title: 'Green', color: colors.green, colorname: 'green' },
@@ -110,7 +141,19 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js',
-      darkTheme: false
+      darkTheme: false,
+      miniRight: true,
+      itemsRight: [
+          { action: '15 min', headline: 'Brunch this weekend?', title: 'Ali Connors', subtitle: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?" },
+          { action: '2 hr', headline: 'Summer BBQ', title: 'me, Scrott, Jennifer', subtitle: "Wish I could come, but I'm out of town this weekend." },
+          { action: '6 hr', headline: 'Oui oui', title: 'Sandra Adams', subtitle: 'Do you have Paris recommendations? Have you ever been?' },
+          { action: '12 hr', headline: 'Birthday gift', title: 'Trevor Hansen', subtitle: 'Have any ideas about what we should get Heidi for her birthday?' },
+          { action: '18hr', headline: 'Recipe to try', title: 'Britta Holt', subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.' },
+          { action: '15 min', headline: 'Brunch this weekend?', title: 'Ali Connors', subtitle: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?" },
+          { action: '2 hr', headline: 'Summer BBQ', title: 'me, Scrott, Jennifer', subtitle: "Wish I could come, but I'm out of town this weekend." },
+          { action: '6 hr', headline: 'Oui oui', title: 'Sandra Adams', subtitle: 'Do you have Paris recommendations? Have you ever been?' }
+          
+        ]
     }
   },
   methods: {
@@ -121,8 +164,25 @@ export default {
     },
     _changecolor(selected) {
       this.$vuetify.theme.primary = selected.color;
+    },
+    setRightDrawer() {
+      this.rightDrawer = false
     }
   },
   name: 'App'
 }
 </script>
+<style>
+.samplecss {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif; /* this was it */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  font-size: 12px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+</style>
