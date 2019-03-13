@@ -46,17 +46,19 @@
             </v-list-tile>
           </template>
           </v-slide-x-transition>
-        </v-list>
-        
+        </v-list>    
       </v-card>
     </v-flex>
+    
   </v-layout>
+  
 </div>
 </template>
 <script>
   export default {
     data () {
       return {
+        hasSaved: false,
         items: [
           { header: 'Today' },
           {
@@ -102,6 +104,7 @@
                     subtitle: "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
                 }
             );
+            this.hasSaved = true
         }
     }
   }

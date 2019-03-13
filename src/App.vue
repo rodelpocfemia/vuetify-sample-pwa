@@ -130,7 +130,8 @@ export default {
               { title: 'BootsrapVueInputFile', icon: 'cloud_upload', path: '/BootsrapVueInputFile' },
               { title: 'DashboardCard', icon: 'dashboard', path: '/DashboardCard' },
               { title: 'Timeline', icon: 'dashboard', path: '/Timeline' },
-              { title: 'Subheaders', icon: 'dashboard', path: '/Subheaders' }
+              { title: 'Subheaders', icon: 'dashboard', path: '/Subheaders' },
+              { title: 'VueditorSample', icon: 'dashboard', path: '/VueditorSample' }
               ],
       coloritems: [{ title: 'Blue', color: colors.blue, colorname: 'blue' },
                   { title: 'Green', color: colors.green, colorname: 'green' },

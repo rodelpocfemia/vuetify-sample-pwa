@@ -13,6 +13,7 @@ import BootsrapVueInputFile from '@/components/BootsrapVueInputFile'
 import DashboardCard from '@/components/DashboardCard'
 import Timeline from '@/components/Timeline'
 import Subheaders from '@/components/Subheaders'
+import VueditorSample from '@/components/VueditorSample'
 
 Vue.use(Router)
 
@@ -82,6 +83,11 @@ export default new Router({
       path: '/Subheaders',
       name: 'Subheaders',
       component: Subheaders
-    }
+    },
+    {
+      path: '/VueditorSample',
+      name: 'VueditorSample',
+      component: VueditorSample
+    }    
   ]
 })
