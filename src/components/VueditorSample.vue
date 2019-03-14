@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Vueditor style="height:300px;"></Vueditor>
+    <Vueditor style="height:300px;" color="primary" dark></Vueditor>
   </div>
 </template>
 <script>

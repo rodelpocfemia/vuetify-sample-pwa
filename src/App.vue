@@ -131,7 +131,8 @@ export default {
               { title: 'DashboardCard', icon: 'dashboard', path: '/DashboardCard' },
               { title: 'Timeline', icon: 'dashboard', path: '/Timeline' },
               { title: 'Subheaders', icon: 'dashboard', path: '/Subheaders' },
-              { title: 'VueditorSample', icon: 'dashboard', path: '/VueditorSample' }
+              { title: 'VueditorSample', icon: 'dashboard', path: '/VueditorSample' },
+              { title: 'emojimart', icon: 'dashboard', path: '/emojimart' }
               ],
       coloritems: [{ title: 'Blue', color: colors.blue, colorname: 'blue' },
                   { title: 'Green', color: colors.green, colorname: 'green' },

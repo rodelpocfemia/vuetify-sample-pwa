@@ -14,6 +14,7 @@ import DashboardCard from '@/components/DashboardCard'
 import Timeline from '@/components/Timeline'
 import Subheaders from '@/components/Subheaders'
 import VueditorSample from '@/components/VueditorSample'
+import emojimart from '@/components/emojimart'
 
 Vue.use(Router)
 
@@ -88,6 +89,11 @@ export default new Router({
       path: '/VueditorSample',
       name: 'VueditorSample',
       component: VueditorSample
-    }    
+    },
+    {
+      path: '/emojimart',
+      name: 'emojimart',
+      component: emojimart
+    }
   ]
 })
