@@ -4,7 +4,6 @@
       <v-layout row wrap>
 
         <v-flex xs12 sm6>
-
            <v-text-field
             v-model="text"
             solo
@@ -12,7 +11,7 @@
             clearable
             @click:append="clickAppend"
           ></v-text-field>
-             <picker v-show="displayEmoji" @select="addEmoji" :style="{ position: 'absolute', top: '90px', left: '138px'}" />
+             <picker set="emojione" v-show="displayEmoji" @select="addEmoji" :style="{ position: 'absolute', top: '97px', left: '138px'}" title="Sample"/>
         </v-flex>
      </v-layout>
       <v-layout>
@@ -21,7 +20,6 @@
             style="position:absolute;bottom:0px;right:20px;margin-bottom:10px;"
             v-model="text"
             solo
-            append-icon="tag_faces"
             clearable
           ></v-text-field>
              
@@ -40,6 +38,7 @@
         data() {
             return {
                 text: '',
+                emojiHtml: '',
                 displayEmoji: false
             }
         },

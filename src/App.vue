@@ -132,7 +132,10 @@ export default {
               { title: 'Timeline', icon: 'dashboard', path: '/Timeline' },
               { title: 'Subheaders', icon: 'dashboard', path: '/Subheaders' },
               { title: 'VueditorSample', icon: 'dashboard', path: '/VueditorSample' },
-              { title: 'emojimart', icon: 'dashboard', path: '/emojimart' }
+              { title: 'emojimart', icon: 'dashboard', path: '/emojimart' },
+              { title: 'wdtemoji', icon: 'dashboard', path: '/wdtemoji' },
+              { title: 'map', icon: 'map', path: '/map' },
+              { title: 'vuewysiwyg', icon: 'map', path: '/vuewysiwyg' },
               ],
       coloritems: [{ title: 'Blue', color: colors.blue, colorname: 'blue' },
                   { title: 'Green', color: colors.green, colorname: 'green' },

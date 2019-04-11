@@ -15,6 +15,9 @@ import Timeline from '@/components/Timeline'
 import Subheaders from '@/components/Subheaders'
 import VueditorSample from '@/components/VueditorSample'
 import emojimart from '@/components/emojimart'
+import wdtemoji from '@/components/wdtemoji'
+import GoogleMap from '@/components/GoogleMap'
+import vuewysiwyg from '@/components/vuewysiwyg'
 
 Vue.use(Router)
 
@@ -94,6 +97,21 @@ export default new Router({
       path: '/emojimart',
       name: 'emojimart',
       component: emojimart
-    }
+    },
+    {
+      path: '/wdtemoji',
+      name: 'wdtemoji',
+      component: wdtemoji
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: GoogleMap
+    },
+    {
+      path: '/vuewysiwyg',
+      name: 'vuewysiwyg',
+      component: vuewysiwyg
+    }    
   ]
 })
