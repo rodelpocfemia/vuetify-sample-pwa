@@ -18,6 +18,7 @@ import emojimart from '@/components/emojimart'
 import wdtemoji from '@/components/wdtemoji'
 import GoogleMap from '@/components/GoogleMap'
 import vuewysiwyg from '@/components/vuewysiwyg'
+import SampleSignalR from '@/components/SampleSignalR'
 
 Vue.use(Router)
 
@@ -112,6 +113,12 @@ export default new Router({
       path: '/vuewysiwyg',
       name: 'vuewysiwyg',
       component: vuewysiwyg
-    }    
+    },
+    {
+      path: '/SampleSignalR',
+      name: 'SampleSignalR',
+      component: SampleSignalR
+    }  
+    
   ]
 })

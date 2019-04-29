@@ -136,6 +136,7 @@ export default {
               { title: 'wdtemoji', icon: 'dashboard', path: '/wdtemoji' },
               { title: 'map', icon: 'map', path: '/map' },
               { title: 'vuewysiwyg', icon: 'map', path: '/vuewysiwyg' },
+              { title: 'SampleSignalR', icon: 'map', path: '/SampleSignalR' },
               ],
       coloritems: [{ title: 'Blue', color: colors.blue, colorname: 'blue' },
                   { title: 'Green', color: colors.green, colorname: 'green' },

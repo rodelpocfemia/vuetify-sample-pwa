@@ -21,6 +21,10 @@ import emojiComponet from '@/plugins/emoji'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import wysiwyg from "vue-wysiwyg";
 
+// signalR
+const signalR = require('@aspnet/signalr');
+Vue.prototype.$signalR = signalR;
+
 let config = {
  
   // buttons on the toolbar, you can use '|' or 'divider' as the separator
